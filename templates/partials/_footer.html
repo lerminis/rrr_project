@@ -1,0 +1,39 @@
+{% load static %}
+<!-- Footer -->
+<footer>
+    <div class="container-fluid">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <hr class="light">
+                <img src="{% static 'img/smalllogo2.png' %}">
+                <hr class="light">
+                <p>306-123-1234</p>
+                <p>fakeemail@email.com</p>
+                <p>100 Regina Street</p>
+                <p>Regina, Saskatchewan</p>
+            </div>
+            <div class="col-md-4 social">
+                <hr class="light">
+                <h6> Connect </h6>
+                <hr class="light">
+                <p><i class="fab fa-facebook"></i><a href="#"> Facebook </a></p>
+                <p><i class="fab fa-twitter"></i><a href="#"> Twitter</a></p>
+                <p><i class="fab fa-google-plus-g"></i><a href="#"> Google Plus </a></p>
+                <p><i class="fab fa-instagram"></i><a href="#"> Instagram </a></p>
+            </div>
+            <div class = "col-md-4 about">
+                <hr class="light">
+                <h6> About </h6>
+                <hr class="light">
+                <p><a href="{% url 'about' %}">Meet the team </a></p>
+                <p><a href="{% url 'helpfaq' %}">Help & FAQ </a></p>
+                <p><a href="{% url 'terms' %}">Terms & Agreements </a> </p>
+            </div>
+            <div class="col-12">
+                <hr class="light-100">
+                <h6>&copy; ReginasRecreationalRentables</h6>
+            </div>
+
+        </div>
+    </div>
+</footer>

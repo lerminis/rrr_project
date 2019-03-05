@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %} | Create a Listing{% endblock %}
+
+{% block content %}
+<!-- <section id="create" class="bg-light py-5"> -->
+<div class="container-fluid">
+	<div class="d-flex justify-content-center h-100">
+		<div class="col-md-4 mx-auto">
+			<div class="card">
+				<div class="card-header">
+					<h3 class="text-center"> CREATE A LISTING </h3>
+				</div>
+				<div class="card-body create-body">
+					{% include 'partials/_alerts.html' %} 
+					<form action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="form-group">
+							<label for="title">Title</label>
+							<input type="text" name = "title" class="form-control" value="{{ title }}" required>
+						</div>
+
+						<div class="form-group">
+							<label for="description">Description</label>
+							<textarea name="description" class="form-control" rows="4" cols="15" required>{{ description }}</textarea>
+						</div>
+
+						<div class="form-group">
+							<label for="daily_price">Daily Price</label>
+							<input type="number" name="daily_price" class="form-control" value="{{ daily_price }}"required>
+						</div>
+
+						<div class="form-group">
+							<label for="location">Location</label><br />
+							<!--radio buttons doesn't create a new line automatically--->
+							{% if location == 0 %}
+                            <input type="radio" name="location" value="0" checked><span> North Regina</span><br />
+                            {% else %} 
+                            <input type="radio" name="location" value="0"><span> North Regina</span><br />
+                            {% endif %}  
+                                                  
+                            {% if location == 1 %}
+                            <input type="radio" name="location" value="1" checked><span> South Regina</span><br />
+                            {% else %} 
+                            <input type="radio" name="location" value="1"><span> South Regina</span><br />
+                            {% endif %}  
+
+                            {% if location == 2 %}
+                            <input type="radio" name="location" value="2" checked><span> East Regina</span><br />
+                            {% else %} 
+                            <input type="radio" name="location" value="2"><span> East Regina</span><br />
+                            {% endif %} 
+
+                            {% if location == 3 %}
+                            <input type="radio" name="location" value="3" checked><span> West Regina</span><br />
+                            {% else %} 
+                            <input type="radio" name="location" value="3"><span> West Regina</span><br />
+                            {% endif %}
+
+						</div>
+
+						<div class="form-group">
+							<label for="photo_1"> Upload a Photo
+							{% if photo_1 %}
+							<h6><small>Photos are not required when editing a listing</small></h6>
+							{% else %}
+							<h6><small>(minimum 1 photo required)</small></h6>
+							{% endif %}
+							</label>
+
+						</div>
+
+
+						<div class="form-group">
+							<span><input id="photo_1" type="file" name="photo_1" required></span><!--Span changes font to yellow to make it easier to read-->
+						</div>
+
+						<div class="form-group">
+							<span><input type="file" name="photo_2"></span>
+						</div>
+
+						<div class="form-group">
+							<span><input type="file" name="photo_3"></span>
+						</div>
+
+						<div class="form-group">
+							<span><input type="file" name="photo_4"></span>
+						</div>
+
+						<div class="form-group">
+							<span><input type="file" name="photo_5"></span>
+						</div>
+
+						<input type="submit" value="Submit" class="btn btn-secondary btn-block" />
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+{% endblock %}

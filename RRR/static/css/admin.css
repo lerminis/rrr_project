@@ -1,0 +1,82 @@
+
+html {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  body {
+    color:#575554;
+    font-family: "Poppins",sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.800em;
+    position: relative;
+    margin: 0;
+    padding: 0;
+  
+  }
+
+#header {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #35414C;
+    color: lightgrey;
+    overflow: hidden;
+    padding-top:35px;
+    padding-bottom:35px;
+}
+
+#branding h1 {
+    padding: 0;
+    margin: 0 20px 0 0;
+    font-size: 15px;
+    color:white;
+}
+.colMS {
+    margin-right: 300px;
+}
+
+.colSM {
+    margin-left: 300px;
+}
+
+.content-main {
+    color:white;
+    background: white;
+}
+
+.module table {
+    border-collapse: collapse;
+
+}
+
+div.breadcrumbs {
+    background: lightgrey;
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    color: grey;
+    text-align: left;
+}
+
+div.breadcrumbs a {
+    color: black;
+}
+
+div.breadcrumbs a:focus, div.breadcrumbs a:hover {
+    color: white;
+}
+
+
+.module h2, .module caption, .inline-group h2 {
+    margin: 0;
+    padding: 8px;
+    font-weight: 400;
+    font-size: 13px;
+    text-align: left;
+    background: #B4B8BC;
+    color: #fff;
+}

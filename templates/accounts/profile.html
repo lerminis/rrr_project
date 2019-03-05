@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} | Edit Profile{% endblock %}
+
+{% block content %}
+<form action="{% url 'profile' %}" method="POST">
+{% csrf_token %}
+  <div class="profcontainer">
+    <div class="row">
+        <!-- edit form column -->
+        <div class="col-8">
+          {% include 'partials/_alerts.html' %}
+          <div class="col-8">
+          <h3>Personal info</h3>
+           <p> First Name: <input class="form-control" value="{{ first_name }}" type="text" name="first_name"> </p>
+           <p> Last Name: <input class="form-control" value="{{ last_name }}" type="text" name="last_name"> </p>
+           <p> Username: <input class="form-control" value="{{ username }}" type="text" name="username"> </p>
+           <p> Email: <input class="form-control" value="{{ email }}" type="text" name="email"> </p>
+           <p> New Password (Optional): <input class="form-control" type="password" name="new_password"> </p>
+           <p> Confirm New Password (Optional): <input class="form-control" type="password" name="confirm_new_password"> </p>
+           <p> Old Password: <input class="form-control" type="password" name="old_password"> </p>
+          </div>
+            <div class="col-8">
+              <input class="btn btn-success" value="Save Changes" type="submit">
+              <span></span>
+              <input class="btn btn-warning" value="Cancel" type="reset">
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</form>
+
+
+
+
+{% endblock %}

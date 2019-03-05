@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %} | User Dashboard{% endblock %}
+
+{% block content %}
+{% include 'partials/_alerts.html' %}
+<!--Only the logged in user's listings are displayed here-->
+<div class="post-wrapper pt-60">
+	<section class="post-area">
+		<div class="container dashhead">
+			<div class="row justify-content-center d-flex">
+				<div class="col-lg-8">
+					<h3 class="dashboardhead">My listings</h3>
+					{% for listing in user_listings_query %}
+					<div class="single-list flex-row d-flex">
+						<div class="thumb">
+							<div class="price">
+								<span>${{ listing.daily_price }}</span><br />/Day
+							</div>
+							<img src="{{ listing.photo_1.url }}" class="listing-img" alt="bike">
+						</div>
+
+						<div class="detail">
+							<a href="{% url 'listing' listing.id %}">
+								<h4 class="pb-20">
+									{{ listing.title }}
+								</h4>
+							</a>
+							<p> {{ listing.description }} </p>
+							<p class="footer pt-20">
+								<i class="fa fa-user" aria-hidden="true"></i>
+								<span>{{ listing.user }}</span>
+								<i class="ml-20 fa fa-map-marker-alt" aria-hidden="true"></i>
+								{% if listing.location == 0 %}
+								<span>North Regina</span>
+								{% elif listing.location == 1 %}
+								<span>South Regina</span>
+								{% elif listing.location == 2 %}
+								<span>East Regina</span>
+								{% else %}
+								<span>West Regina</span>
+								{% endif %}
+								<i class="ml-20 fa fa-calendar-check" aria-hidden="true"></i>
+								{% if listing.is_available %}
+								<span>Available now!</span>
+								{% else %}
+								<span>Not available</span>
+								{% endif %}
+								
+								<form method="POST" class="form-inline"><p>
+										<a class="btn btn-danger" href="{% url 'delete' listing.id %}"  role="button">Delete</a>
+										<a class="btn btn-info" href="{% url 'edit' listing.id %}" role="button">Edit</a>
+										{% csrf_token %}
+										<input type="hidden" name="set_rented" value="{{ listing.id }}">
+										{% if listing.is_available %}
+										<input type="submit" class="btn btn-warning" value="Mark unavailable">
+										{% else %}
+										<input type="submit" class="btn btn-success" value="Mark available!">
+										{% endif %}
+								</p></form>
+						</div>
+					</div>
+					{% endfor %}
+					<!--Pagination-->
+					<div class="justify-content-center d-flex">
+						<div class="row">
+							<ul class="pagination">
+								<!--If not on first (or only) page-->
+								{% if user_listings.has_previous %}
+								<li class="page-item">
+									<a class="page-link" href="?page=1">&laquo; First </a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="?page={{ user_listings.previous_page_number }}"> &lt;
+										Previous </a>
+								</li>
+								{% endif %}
+
+								<!--Displays what page you are on and the total number of pages-->
+								<li class="page-item disabled">
+									<p class="page-link">
+										Page {{ user_listings.number }} of {{ user_listings.paginator.num_pages }}
+									</p>
+								</li>
+
+								<!--If not on last (or only) page-->
+								{% if user_listings.has_next %}
+								<li class="page-item">
+									<a class="page-link" href="?page={{ user_listings.next_page_number }}"> Next &gt;
+									</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link" href="?page={{ user_listings.paginator.num_pages }}">Last
+										&raquo;</a>
+								</li>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+{% endblock %}

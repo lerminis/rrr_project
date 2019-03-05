@@ -1,0 +1,51 @@
+{% load static %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'img/logo.png' %}"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'listings' %}">View Listings</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <div class="dropdown show">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Hello, {{ request.user.first_name }}! </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'dashboard' %}">My Listings</a>
+                            <a class="dropdown-item" href="{% url 'profile' %}">Edit Profile</a>
+                            <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">
+                                Logout</a>
+                            <form action="{% url 'logout' %}" method="POST" id="logout">
+                                {% csrf_token %}
+                                <input type="hidden">
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-info" href="{% url 'create' %}" role="button">Create a listing</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-info" href="{% url 'login'%}" role="button">Create a listing</a>
+                    <!--Must be logged in to create a listing-->
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

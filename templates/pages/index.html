@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} | Index{% endblock %}
+
+{% block content %}
+{% include 'partials/_alerts.html' %}
+
+<!-- Image Slider -->
+<div class="wrapper">
+    <div id="slider-area" class="owl-carousel">
+        <div style="background-image: url(/static/img/background1.jpg); opacity: 0.9;"></div>
+        <div style="background-image: url(/static/img/background2.jpg); opacity: 0.8;"></div>
+        <div style="background-image: url(/static/img/background3.jpeg); opacity: 0.8;"></div>
+    </div>
+    <div class="slider-text carousel-caption">
+        <h1>Rent now</h1>
+        <h3>Find outdoor gear to rent in Regina!</h3>
+        <div class="active-pink-3 active-pink-4 mb-4">
+            <form action="{% url 'listings' %}" method="GET">
+                <div class="row justify-content-center align-items-center d-flex">
+                    <div class="col-lg-8">
+                        <input class="form-control input-group stylish-input-group" type="text" name="q" aria-label="Search">
+                    </div>
+                </div>
+                <input type="submit" value="Search Listings" class="btn btn-primary btn-lg"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--- Jumbotron -->
+<div class="container-fluid">
+    <div class="row jumbotron">
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
+            <p class="lead"> You can make money by sharing your sports equipment with locals in Regina. Rent out
+                equipment that's collecting dust in your garage and earn some cash! </p>
+            </h>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+            <a href="{% url 'create' %}"><button type="button" class="btn btn-outline-secondary btn-lg"> Create a listing </button></a>
+        </div>
+    </div>
+</div>
+
+<!--How it works-->
+<div class="container-fluid">
+    <div class="row howitworks text-center">
+        <div class="col-12">
+            <h1 class="display-4"> <a id="howitworks">How It Works </a></h1>
+        </div>
+        <div class="col-12">
+            <p class="lead"> Regina's Recreational Rentables is a sports equipment rental service that allows
+                sports
+                equipment owners to connect with active people looking to borrow in Regina. Through our service,
+                owners
+                list their sports equipment, renters search for the equipment and when they find something they
+                like,
+                we provide a way for the renters to get in touch with the owners. </p>
+        </div>
+    </div>
+</div>
+
+<!--Three Column Section -->
+<div class="container-fluid colsec">
+    <div class="row text-center">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <h2> Search </h2>
+            <img src="{% static 'img/m1.png' %}">
+
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <h2> Select </h2>
+            <img src="{% static 'img/m2.png' %}">
+
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <h2> Enjoy </h2>
+            <img src="{% static 'img/m3.png' %}">
+        </div>
+    </div>
+</div>
+{% endblock %}

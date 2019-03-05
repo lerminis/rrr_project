@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+{% block title %} | {{ title }} {% endblock %}
+
+{% block content %}
+{% include 'partials/_alerts.html' %}
+<div class="post-wrapper pt-100">
+	<!-- <section class="post-area"> -->
+	<div class="container listpage">
+		<div class="row justify-content-center d-flex">
+			<div class="col-8 postlist">
+				<div class="single-list flex-row d-flex">
+					<!-- Image -->
+					<div class="thumb">
+						<div class="price">
+							<span>${{ daily_price }}</span><br>/ Day
+						</div>
+
+						<!--pop up images-->
+						<a href="{{ photo_1.url }}" data-lightbox="listimages">
+							<img src="{{ photo_1.url }}" class="listing-img" alt="main_image"></a>
+
+						{% if photo_2 %}
+						<a href="{{ photo_2.url }}" data-lightbox="listimages"></a>
+						{% endif %}
+
+						{% if photo_3 %}
+						<a href="{{ photo_3.url }}" data-lightbox="listimages"></a>
+						{% endif %}
+
+						{% if photo_4 %}
+						<a href="{{ photo_4.url }}" data-lightbox="listimages"></a>
+						{% endif %}
+
+						{% if photo_5 %}
+						<a href="{{ photo_5.url }}" data-lightbox="listimages"></a>
+						{% endif %}
+
+						<!--thumbnails-->
+						<div>
+							<!--img src="{{ photo_1.url }}" class="smallthumbs"-->
+
+							{% if photo_2 %}
+							<img src="{{ photo_2.url }}" class="smallthumbs">
+							{% endif %}
+
+							{% if photo_3 %}
+							<img src="{{ photo_3.url }}" class="smallthumbs">
+							{% endif %}
+
+							{% if photo_4 %}
+							<img src="{{ photo_4.url }}" class="smallthumbs">
+							{% endif %}
+
+							{% if photo_5 %}
+							<img src="{{ photo_5.url }}" class="smallthumbs">
+							{% endif %}
+						</div>
+					</div>
+					<!-- Details -->
+					<div class="detail">
+						<h4 class="pb-20">
+							{{ title }}
+						</h4>
+						<p>{{ description }}</p>
+						<p class="footer pt-20">
+							<i class="fa fa-user" aria-hidden="true"></i>
+							<span>{{ user }}</span>
+							<i class="ml-20 fa fa-map-marker-alt" aria-hidden="true"></i>
+							<span>
+								{% if location == 0 %}
+								<span>North Regina</span>
+								{% elif location == 1 %}
+								<span>South Regina</span>
+								{% elif location == 2 %}
+								<span>East Regina</span>
+								{% else %}
+								<span>West Regina</span>
+								{% endif %}
+							</span>
+							<i class="ml-20 fa fa-calendar-check" aria-hidden="true"></i>
+							<span>
+								{% if is_available %}
+								<span>Available now!</span>
+								{% else %}
+								<span>Not available</span>
+								{% endif %}
+							</span>
+							{% if is_approved == False %}
+							<p class="alert alert-warning">This listing has not yet been approved by an admin!</p>
+							{% endif %}
+						</p>
+						{% if request.user.is_authenticated %}
+						{% if not request.user == user %}
+						{% if subscriber %}
+						<!--If user has already subscribed to the listing-->
+						<div class="unavailable">
+							<form action="{% url 'listing' id %}" method="POST">
+								{% csrf_token %}
+								<p class="font-italic"><a href="#" target="_blank"> <input type="submit"
+											name="unsubscribe"
+											style="background: none!important; border: none; padding: 0!important; color: blue"
+											value="Unsubscribe here" />
+									</a> to
+									remove yourself from the emailing list
+								</p>
+
+							</form>
+						</div>
+						{% else %}
+						<!--User hasn't subscribed to the list-->
+						<div class="unavailable">
+							<form action="{% url 'listing' id %}" method="POST">
+								{% csrf_token %}
+								<p class="font-italic">Item unavailable? <a href="#" target="_blank"> <input
+											type="submit" name="subscribe"
+											style="background: none!important; border: none; padding: 0!important; color: blue"
+											value="Subscribe here" />
+									</a> to
+									get
+									an email notification when the item becomes available!
+								</p>
+
+							</form>
+						</div>
+						{% endif %}
+						{% endif %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<div class="col-4">
+				<div class="form-wrap">
+					<div class="form-wrap-inn">
+						<div class="frame">
+							<div class="form-content">
+								<div class="header">
+									<h2>Want This Item?</h2>
+									<p>Send a message to the owner to let them know you are interested! </p>
+								</div>
+								{% if request.user.is_authenticated %}
+								<form action="{% url 'listing' id %}" method="POST">
+									{% csrf_token %}
+									<div class="form-group shadow-textarea">
+										<textarea class="form-control z-depth-1" id="exampleFormControlTextarea6"
+											rows="3" placeholder="Write your message here..."
+											name="email_msg"></textarea>
+									</div>
+									<div class="text-center button">
+										<input type="submit" value="Send Request"
+											class="btn btn-info btn-block rounded-0 py-2">
+										<p> This will send an email to the owner who will be in contact with you
+											shortly.
+										</p>
+									</div>
+								</form>
+								{% else %}
+									<a href="{% url 'login' %}"><p class="btn btn-info btn-block rounded-0 py-2"> Please log in </p></a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- </section> -->
+</div>
+{% endblock %}
