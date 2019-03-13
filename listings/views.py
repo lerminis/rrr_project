@@ -227,10 +227,5 @@ def delete(request, listing_id):
     specific_listing.delete()
     message = ConcreteCreator(request, "success", 'Your post was successfully deleted, friend!').create()
     message.display()
-    return redirect('dashboard')
-    
-    context = {
-		'form':form
-	}
-    return render(request, 'accounts/dashboard.html', context)
 
+    return redirect('dashboard')
