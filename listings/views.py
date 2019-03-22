@@ -88,8 +88,8 @@ def listing(request, listing_id):
     email_msg = request.POST.get('email_msg', 0)
     if email_msg is not 0:  # if the user clicked on the submit message button
         #Email sent using GMAIL
-        subject = '[RRR] New inquiry about ' + context['title']
-        email_msg = email_msg + '\n\n\n\nThis is an automated email. Do not respond to this email!\nPlease respond to: ' + request.user.email
+        subject = '[RRR] New inquiry from user "{0}" regarding your listing "{1}"'.format(request.user.username, context['title'])
+        email_msg = email_msg + '\n\nRespond to {0} with the following email: {1}\n\nThanks!\n\nRRR Notifications Team \n\nThis is an automated email. Do not respond to this email!'.format(request.user.first_name, request.user.email)
         from_email = settings.EMAIL_HOST_USER
         to_email = [User.objects.get(username=context['user']).email] #owner of the listing
 

@@ -114,8 +114,14 @@ class ConcreteObserver(User, Observer):
         proxy = True
 
     def update(self, subject):
-        print('Subscriber {0} was notified successfully about the availability of {1}'.format(
-            self.username, subject))
+        # print('Subscriber {0} was successfully notified about the availability of {1}'.format(
+        #     self.username, subject))
+        esubject = '[RRR] Subscriber Notification'
+        message = 'Hey {0}! We wanted to let you know that user "{1}" was successfully notified about the recent availability of your listing "{2}"'.format(subject.user.first_name, self.username, subject.title)
+        message = message + '\n\nThanks!\n\nRRR Notifications Team \n\nThis is an automated email. Do not respond to this email!'
+        from_email = settings.EMAIL_HOST_USER
+        to_email = [subject.user.email]
+        send_mail(esubject, message, from_email, to_email, fail_silently=True)
 
 
 class Listing(models.Model, Subject):
@@ -161,13 +167,13 @@ class Listing(models.Model, Subject):
             print('Failed to remove!')
 
     def notify(self):
-        subject = '[RRR] ' + self.title + ' is now available!'
-        message = 'Hey! You were subscribed to ' + self.title + \
-            ' and we just wanted to let you know it\'s now available to be rented!'
+        subject = '[RRR] {} is now available!'.format(self.title)
+        message = 'Hey! You were subscribed to {0} and we just wanted to let you know it is now available to be rented!'.format(self.title)
+        message = message + '\n\nThanks!\n\nRRR Notifications Team \n\nThis is an automated email. Do not respond to this email!'
         from_email = settings.EMAIL_HOST_USER
         to_email = []
         for sub in self.subscribers:
-            ConcreteObserver.objects.get(email=sub).update(self.title)
+            ConcreteObserver.objects.get(email=sub).update(self)
             to_email.append(sub)  # adds all subscribers to the emailing list
 
         # send the email to all subscribers
